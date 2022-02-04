@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledProductGrid = styled.div`
   display: grid;
@@ -18,21 +18,19 @@ export const StyledProductGrid = styled.div`
     {
        grid-template-columns: repeat(1, 100%);
    }
-`
+`;
 
 export const ProductWrapper = styled.div`
-    display:flex;
-    flex-direction:column
-`
- ProductWrapper.Image = styled.img`
- max-width:200px;
+  display: flex;
+  flex-direction: column;
+`;
+ProductWrapper.Image = styled.img`
+  max-width: 200px;
   height: 200px;
-`
+`;
 
 ProductWrapper.TextWrapper = styled.div`
-text-align:initial;
-`
+  text-align: initial;
+`;
 
-
-ProductWrapper.Tags = styled.div`
-`
+ProductWrapper.Tags = styled.div``;

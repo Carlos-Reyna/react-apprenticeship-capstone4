@@ -1,1 +1,1 @@
-export {default} from './CarrouselContainer.component'
+export { default } from './CarrouselContainer.component';

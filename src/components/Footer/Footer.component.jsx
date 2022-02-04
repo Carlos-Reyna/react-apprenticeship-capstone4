@@ -1,9 +1,12 @@
-import { StyledFooter } from "./Footer.styled";
+import { StyledFooter } from './Footer.styled';
 
-function Footer(){
-    return(<>
-        <StyledFooter> Ecommerce created during Wizeline’s Academy React Bootcamp</StyledFooter>
-    </>)
+function Footer() {
+  return (
+    <StyledFooter>
+      {' '}
+      Ecommerce created during Wizeline’s Academy React Bootcamp
+    </StyledFooter>
+  );
 }
 
 export default Footer;

@@ -1,1 +1,1 @@
-export {default} from './ProductGrid.component'
+export { default } from './ProductGrid.component';

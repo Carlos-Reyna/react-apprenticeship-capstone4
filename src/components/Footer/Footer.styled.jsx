@@ -1,7 +1,6 @@
-import styled from "styled-components";
-
+import styled from 'styled-components';
 
 export const StyledFooter = styled.footer`
-    display:inherit;
-    justify-content:center;
-`
+  display: inherit;
+  justify-content: center;
+`;

@@ -56,7 +56,7 @@ export const TextInput = styled.input`
   border-right: 0;
   padding-bottom: 0px;
   font-size: 1.3rem;
-  background-color:inherit;
+  background-color: inherit;
   width: ${(props) => props.width || '100%'};
   margin: 1%;
 
@@ -216,11 +216,11 @@ export const StyledSwitch = styled.label`
 `;
 
 export const TitleHeading = styled.h1`
-font-size:0.8rem;
-margin:1%;
-`
+  font-size: 0.8rem;
+  margin: 1%;
+`;
 
-export const HeaderIcon  = styled.i`
-font-size:1.2rem;
-margin: 1%;
-`
+export const HeaderIcon = styled.i`
+  font-size: 1.2rem;
+  margin: 1%;
+`;
