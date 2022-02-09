@@ -1,10 +1,17 @@
-import { FEATURED_PRODUCT_HEADING } from '../../const';
-import { ProductWrapper, StyledProductGrid } from './ProductGrid.styled';
+import ReactPaginate from 'react-paginate';
+import { TitleHeading, Box } from '../Styled/Custom.styled';
+import {
+  PaginationWrapper,
+  ProductWrapper,
+  StyledProductGrid,
+} from './ProductGrid.styled';
 
-function ProductGrid({ items }) {
+function ProductGrid({ heading, items }) {
   return (
-    <>
-      <h1>{FEATURED_PRODUCT_HEADING}</h1>
+    <Box>
+      <TitleHeading fontSize="2rem" title="header-product-grid">
+        {heading}
+      </TitleHeading>
       <StyledProductGrid>
         {items.map((item) => (
           <ProductWrapper key={item.id}>
@@ -21,7 +28,20 @@ function ProductGrid({ items }) {
           </ProductWrapper>
         ))}
       </StyledProductGrid>
-    </>
+
+      {items.length !== 0 ? (
+        <PaginationWrapper>
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel="next >"
+            pageRangeDisplayed={5}
+            pageCount={5}
+            previousLabel="< previous"
+            renderOnZeroPageCount={null}
+          />
+        </PaginationWrapper>
+      ) : null}
+    </Box>
   );
 }
 

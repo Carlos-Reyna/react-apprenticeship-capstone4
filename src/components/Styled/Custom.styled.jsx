@@ -85,7 +85,7 @@ export const TextArea = styled.textarea`
 `;
 
 export const NormalButton = styled.button`
-  background-color: #7222F5;
+  background-color: #53607A;
   border-radius: 8px;
   border-style: none;
   box-sizing: border-box;
@@ -106,17 +106,20 @@ export const NormalButton = styled.button`
   -webkit-transition: color 100ms;
   transition: color 100ms;
   width: ${(props) => props.width || '25%'};
-  margin: 2%;
-
+  margin-left: ${(props) => props.marginLeft || 0};
   &:hover,
   &:focus {
-    background-color: #7847FF;
+    background-color: #C3C4C7;
   }
 
   @media only screen and (max-width: 600px) {
     {
      width:90%; 
      margin-left:5%;
+   }
+
+    .HomepageButton {
+     margin-left:40%;
    }
 `;
 
@@ -134,19 +137,23 @@ export const StyledForm = styled.form`
 
 export const Box = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${(props) => (props.direction ? props.direction : 'column')};
   text-align: center;
   min-width: ${(props) => (props.minWidth ? props.minWidth : '80%')};
-  margin: 5%;
   justify-content: center;
   gap:10px;
 
+
+
   @media only screen and (max-width: 600px) {
     {
-      flex-direction: column;
-     width:90%; 
+      flex-direction: ${(props) =>
+        props.direction ? props.direction : 'column'};
+      width:100%; 
      
    }
+
+
 
 `;
 
@@ -216,11 +223,20 @@ export const StyledSwitch = styled.label`
 `;
 
 export const TitleHeading = styled.h1`
-  font-size: 0.8rem;
+  font-size: ${(props) => props.fontSize || '1rem'};
   margin: 1%;
+
+  @media (max-width: 768px) {
+    font-size: ${(props) => props.fontSizeAlt || '0.8rem'};
+  }
+
+  @media only screen and (max-width: 600px) {
+    {
+      font-size: ${(props) => props.fontSizeAlt || '1rem'};
+   } 
 `;
 
 export const HeaderIcon = styled.i`
-  font-size: 1.2rem;
+  font-size: 2rem;
   margin: 1%;
 `;

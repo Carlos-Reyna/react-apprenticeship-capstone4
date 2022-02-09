@@ -13,3 +13,22 @@ export const StyledHeader = styled.div`
   flex-direction: row;
   align-items: center;
 `;
+
+export const HeaderTitleWrapper = styled.div`
+  cursor:pointer;
+  display: inherit;
+  width:12%;
+  margin:1%;
+  
+
+  @media only screen and (max-width: 920px) {
+    width:15%;
+  }
+
+  @media only screen and (max-width: 600px) {
+    &:first-child{
+    display:none;
+   }
+
+
+`;
