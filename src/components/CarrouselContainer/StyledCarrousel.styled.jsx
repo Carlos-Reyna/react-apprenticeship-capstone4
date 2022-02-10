@@ -7,7 +7,7 @@ export const StyledCarrousel = styled.div`
   justify-content: center;
 
   .carousel-root {
-    width: 40%;
+    width: 80%;
   }
 
   @media only screen and (max-width: 920px) {

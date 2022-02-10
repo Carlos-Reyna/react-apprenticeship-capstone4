@@ -2,10 +2,10 @@ import Footer from '../Footer';
 import Header from '../Header';
 import Layout from '../Layout';
 
-function Content({ children }) {
+function Content({ children, handleClick }) {
   return (
     <Layout>
-      <Header />
+      <Header handleClick={handleClick} />
       {children}
       <Footer />
     </Layout>

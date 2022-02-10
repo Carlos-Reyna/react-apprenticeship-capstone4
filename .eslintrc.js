@@ -11,11 +11,10 @@ module.exports = {
     'prettier'
   ],
   parserOptions: {
-    "ecmaVersion": 6,
-    "sourceType": "module",
     "ecmaFeatures": {
-        "jsx": true
-    }
+      "jsx": true,
+      "modules": true
+  }
   },
   plugins: [
     'react',
@@ -31,4 +30,5 @@ module.exports = {
     'react/jsx-no-constructed-context-values': 'off'
 
   },
+  
 };
