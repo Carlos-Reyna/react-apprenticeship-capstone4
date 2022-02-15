@@ -105,21 +105,18 @@ export const NormalButton = styled.button`
   text-decoration: none;
   -webkit-transition: color 100ms;
   transition: color 100ms;
-  width: ${(props) => props.width || '25%'};
   margin-left: ${(props) => props.marginLeft || 0};
+  width: fit-content;
   &:hover,
   &:focus {
     background-color: #C3C4C7;
   }
 
-  @media only screen and (max-width: 600px) {
-    {
-     width:90%; 
-     margin-left:5%;
-   }
 
-    .HomepageButton {
-     margin-left:40%;
+  }
+   & a {
+     text-decoration: none;
+     color: inherit;
    }
 `;
 
@@ -224,7 +221,7 @@ export const StyledSwitch = styled.label`
 
 export const TitleHeading = styled.h1`
   font-size: ${(props) => props.fontSize || '1rem'};
-  margin: 1%;
+  width:100%;
 
   @media (max-width: 768px) {
     font-size: ${(props) => props.fontSizeAlt || '0.8rem'};
@@ -234,9 +231,33 @@ export const TitleHeading = styled.h1`
     {
       font-size: ${(props) => props.fontSizeAlt || '1rem'};
    } 
+
+   & a{
+     margin:0;
+   }
 `;
 
 export const HeaderIcon = styled.i`
   font-size: 2rem;
-  margin: 1%;
+`;
+
+export const ItemLabel = styled.label`
+  font-size: 1.5rem;
+`;
+
+export const FlexColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 2%;
+`;
+
+FlexColumn.Centered = styled.div`
+  align-items: center;
+`;
+
+export const FlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  row-gap: 10px;
+  column-gap: 10px;
 `;

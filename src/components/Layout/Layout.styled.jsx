@@ -9,4 +9,5 @@ export const StyledLayout = styled.main`
   flex-direction: column;
   font-family: 'Oswald', sans-serif;
   gap: 10px;
+  overflow: auto;
 `;

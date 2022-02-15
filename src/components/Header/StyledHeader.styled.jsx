@@ -15,9 +15,8 @@ export const StyledHeader = styled.div`
 `;
 
 export const HeaderTitleWrapper = styled.div`
-  cursor:pointer;
   display: inherit;
-  width:12%;
+  width:15%;
   margin:1%;
   
 
@@ -31,4 +30,19 @@ export const HeaderTitleWrapper = styled.div`
    }
 
 
+`;
+
+export const HeaderForm = styled.form`
+  display: flex;
+  flex-direction: row;
+  width: 40%;
+  align-items: baseline;
+}
+  @media only screen and (max-width: 920px) {
+    width: 60%;
+  }
+
+  @media only screen and (max-width: 600px) {
+    width: 80%;
+  }
 `;

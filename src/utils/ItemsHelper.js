@@ -26,4 +26,8 @@ function filterProducts(categories, products) {
   return filteredProducts;
 }
 
-export { getCategories, filterProducts };
+function ValidateRequestObject(object) {
+  return Object.keys(object).length !== 0;
+}
+
+export { getCategories, filterProducts, ValidateRequestObject };
