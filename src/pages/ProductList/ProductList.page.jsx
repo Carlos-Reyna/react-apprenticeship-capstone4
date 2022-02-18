@@ -1,28 +1,56 @@
+import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
-import { Box, TitleHeading } from '../../components/Styled/Custom.styled';
+import {
+  Box,
+  NormalButton,
+  TitleHeading,
+} from '../../components/Styled/Custom.styled';
 import { CategoryItem, ProductSidebar } from './ProductList.styled';
-import productsJson from '../../mocks/en-us/products.json';
-import categoriesJson from '../../mocks/en-us/product-categories.json';
 import ProductGrid from '../../components/ProductGrid';
 import { TEMP_PRODUCT_TITLE } from '../../const';
-import { filterProducts, getCategories } from '../../utils/ItemsHelper';
+import { useCategories } from '../../utils/hooks/UseCategories';
+import { useProducts } from '../../utils/hooks/useProducts';
+import Loading from '../../components/Loading';
 
 function ProductList() {
-  const initialProducts = productsJson.results;
-  const initialCategories = getCategories(categoriesJson.results);
-  const [categories, setCategories] = useState(initialCategories);
-  const [products, setProducts] = useState(initialProducts);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const params = searchParams.getAll('category');
 
-  const handleFilter = (category) => {
-    const nextFilter = [...categories];
-    const index = categories.findIndex((cat) => cat.data.name === category);
+  const { categories, filterCategories, clearFilter } = useCategories(params);
+  const { productStore, applyFilter } = useProducts(
+    'PRODUCTS',
+    categories.data
+  );
 
-    nextFilter[index].isSelected = !nextFilter[index].isSelected;
+  const [toggleFilter, setToggleFilter] = useState(false);
 
-    setCategories(nextFilter);
-    const productsFiltered = filterProducts(categories, initialProducts);
-    setProducts(productsFiltered);
+  const handleCatChange = (catName) => {
+    const categoryParams = filterCategories(catName);
+    applyFilter(categories.data);
+
+    if (categoryParams.length === 0) {
+      setSearchParams({});
+    } else {
+      setSearchParams({ category: categoryParams });
+    }
+
+    setToggleFilter(!toggleFilter);
   };
+
+  const clearCategories = () => {
+    setSearchParams({});
+    clearFilter();
+    applyFilter(categories.data);
+  };
+
+  if (categories.isLoading) {
+    return (
+      <Box>
+        {' '}
+        <Loading />
+      </Box>
+    );
+  }
 
   return (
     <Box width="80%" direction="row">
@@ -31,11 +59,16 @@ function ProductList() {
           Categories
         </TitleHeading>
         <ul>
-          {categories.map((cat) => (
+          <ol>
+            <NormalButton onClick={clearCategories}>
+              Clear Categories
+            </NormalButton>
+          </ol>
+          {categories.data.map((cat) => (
             <ol key={cat.id}>
               <CategoryItem
                 isSelected={cat.isSelected}
-                onClick={() => handleFilter(cat.data.name)}
+                onClick={() => handleCatChange(cat.data.name)}
               >
                 <p> {cat.data.name}</p>
               </CategoryItem>
@@ -43,7 +76,12 @@ function ProductList() {
           ))}
         </ul>
       </ProductSidebar>
-      <ProductGrid heading={TEMP_PRODUCT_TITLE} items={products} />
+      <ProductGrid
+        heading={TEMP_PRODUCT_TITLE}
+        items={productStore.filteredProducts}
+        toggleFilter={toggleFilter}
+        showPagination
+      />
     </Box>
   );
 }

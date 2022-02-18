@@ -3,6 +3,10 @@ import 'react-slideshow-image/dist/styles.css';
 import { StyledSlider } from './Slider.styled';
 
 function Slider({ items, displayTitle = true }) {
+  if (items.length === 0) {
+    return null;
+  }
+
   return (
     <Slide easing="ease">
       {items.map((item) => (

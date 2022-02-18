@@ -7,7 +7,8 @@ display:flex;
 flex-direction: column;
 justify-text:center;
 align-items:center;
-
+margin-left:5%;
+margin-right:2%;
 & ul{
     padding:0;
 }

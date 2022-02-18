@@ -2,12 +2,13 @@ import styled from 'styled-components';
 
 export const StyledProductGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 15%);
-  grid-auto-rows: 300px;
+  grid-template-columns: repeat(4, 22%);
+  grid-auto-rows: ${(props) => (props.showDescription ? '500px' : '430px')};
   grid-column-gap: 20px;
   grid-row-gap: 30px;
   justify-content:center;
-
+  margin-right:${(props) => (props.marginRight ? props.marginRight : '3%')};
+  margin-left:${(props) => (props.marginLeft ? props.marginLeft : '3%')};
 
   @media only screen and (max-width: 920px) {
     {
@@ -17,7 +18,6 @@ export const StyledProductGrid = styled.div`
   @media only screen and (max-width: 600px) {
     {
        grid-template-columns: repeat(1, 90%);
-       margin-left:25%;
        
    }
 `;
@@ -28,8 +28,17 @@ export const ProductWrapper = styled.div`
   align-content: center;
 `;
 ProductWrapper.Image = styled.img`
-  max-width: 200px;
-  height: 200px;
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+
+
+}
+`;
+
+ProductWrapper.Content = styled.div`
+  height: 150px;
+  overflow: hidden;
 `;
 
 ProductWrapper.TextWrapper = styled.div`
@@ -48,5 +57,6 @@ export const PaginationWrapper = styled.span`
     text-decoration: unset;
     text-align: center;
     justify-content: center;
+    padding: 0;
   }
 `;

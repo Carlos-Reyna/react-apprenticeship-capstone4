@@ -1,47 +1,56 @@
-import { useState } from 'react';
-import mockBanners from '../../mocks/en-us/featured-banners.json';
-import mockCategories from '../../mocks/en-us/product-categories.json';
-import mockProducts from '../../mocks/en-us/featured-products.json';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Slider from '../../components/Slider';
-import { Box, NormalButton } from '../../components/Styled/Custom.styled';
+import {
+  Box,
+  FlexColumn,
+  NormalButton,
+} from '../../components/Styled/Custom.styled';
 import CarrouselContainer from '../../components/CarrouselContainer/CarrouselContainer.component';
 import ProductGrid from '../../components/ProductGrid';
+import { useFeaturedBanners } from '../../utils/hooks/useFeaturedBanners';
+import { useFeaturedProducts } from '../../utils/hooks/useFeaturedProducts';
+import { ValidateRequestObject } from '../../utils/ItemsHelper';
+import { FEATURED_PRODUCT_HEADING, FEATURED_QUERY } from '../../const';
+import { useCategories } from '../../utils/hooks/UseCategories';
+import Loading from '../../components/Loading';
 
-function HomePage({ handleClick }) {
-  const [loading, setLoading] = useState(false);
-  const { results } = mockBanners;
-  const categories = mockCategories.results;
-  const products = mockProducts.results;
+function HomePage() {
+  const [banners, setBanners] = useState([]);
+  const { productStore } = useFeaturedProducts(FEATURED_QUERY);
+  const { categories } = useCategories([]);
+  const { data } = useFeaturedBanners();
 
-  const handleLoading = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      handleClick(true);
-    }, 2000);
-  };
+  useEffect(() => {
+    if (ValidateRequestObject(data)) {
+      const { results } = data;
+      setBanners(results);
+    }
+  }, [data]);
+
+  if (categories.isLoading) {
+    return (
+      <Box>
+        {' '}
+        <Loading />{' '}
+      </Box>
+    );
+  }
 
   return (
     <Box>
-      {loading ? (
-        <h2>
-          Loading products <i className="fas fa-spinner fa-spin" />{' '}
-        </h2>
-      ) : (
-        <>
-          <Slider items={results} />
-          <CarrouselContainer items={categories} />
-          <ProductGrid items={products} />
-          <NormalButton
-            width="50%"
-            marginLeft="30%"
-            onClick={() => handleLoading()}
-            title="btn-toggle-products"
-          >
-            Show all products
-          </NormalButton>
-        </>
-      )}
+      <Slider items={banners} />
+      <CarrouselContainer items={categories.data} />
+      <ProductGrid
+        heading={FEATURED_PRODUCT_HEADING}
+        items={productStore.featuredProductData}
+        showPagination={false}
+      />
+      <FlexColumn.Centered>
+        <NormalButton title="btn-toggle-products">
+          <Link to="/products">Show all products</Link>
+        </NormalButton>
+      </FlexColumn.Centered>
     </Box>
   );
 }

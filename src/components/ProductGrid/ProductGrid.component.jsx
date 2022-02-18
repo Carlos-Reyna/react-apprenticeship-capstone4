@@ -1,41 +1,88 @@
+import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import { TitleHeading, Box } from '../Styled/Custom.styled';
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { TitleHeading, Box, NormalButton } from '../Styled/Custom.styled';
 import {
   PaginationWrapper,
   ProductWrapper,
   StyledProductGrid,
 } from './ProductGrid.styled';
 
-function ProductGrid({ heading, items }) {
+function ProductGrid({
+  heading,
+  items,
+  showPagination = false,
+  toggleFilter = false,
+  itemsPerPage = 12,
+  showDescription = false,
+}) {
+  const [currentItems, setCurrentItems] = useState(items);
+  const [pageCount, setPageCount] = useState(0);
+  // Here we use item offsets; we could also use page offsets
+  // following the API or data you're working with.
+  const [itemOffset, setItemOffset] = useState(0);
+
+  useEffect(() => {
+    // Fetch items from another resources.
+    const endOffset = itemOffset + itemsPerPage;
+    setCurrentItems(items.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(items.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, items]);
+
+  useEffect(() => {
+    setItemOffset(0);
+  }, [toggleFilter]);
+
+  // Invoke when user click to request another page.
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % items.length;
+    setItemOffset(newOffset);
+  };
+
   return (
     <Box>
-      <TitleHeading fontSize="2rem" title="header-product-grid">
+      <TitleHeading
+        fontSize="2rem"
+        fontSizeAlt="2em"
+        title="header-product-grid"
+      >
         {heading}
       </TitleHeading>
-      <StyledProductGrid>
-        {items.map((item) => (
+
+      <StyledProductGrid showDescription={showDescription}>
+        {currentItems.map((item) => (
           <ProductWrapper key={item.id}>
             <ProductWrapper.Image src={item.data.images[0].image.url} />
-            <ProductWrapper.TextWrapper>
-              {item.data.name}
-            </ProductWrapper.TextWrapper>
-            <ProductWrapper.TextWrapper>
-              {item.data.category.slug}
-            </ProductWrapper.TextWrapper>
-            <ProductWrapper.TextWrapper>
-              Price: {item.data.price}$
-            </ProductWrapper.TextWrapper>
+            <ProductWrapper.Content>
+              <ProductWrapper.TextWrapper>
+                <Link to={`/products/${item.id}`}>{item.data.name}</Link>
+              </ProductWrapper.TextWrapper>
+              <ProductWrapper.TextWrapper>
+                {item.data.category.slug}
+              </ProductWrapper.TextWrapper>
+              {showDescription ? (
+                <ProductWrapper.TextWrapper>
+                  {item.data.short_description}
+                </ProductWrapper.TextWrapper>
+              ) : null}
+              <ProductWrapper.TextWrapper>
+                Price: {item.data.price}$
+              </ProductWrapper.TextWrapper>
+            </ProductWrapper.Content>
+            <NormalButton width="100%">Add to cart</NormalButton>
           </ProductWrapper>
         ))}
       </StyledProductGrid>
 
-      {items.length !== 0 ? (
+      {currentItems.length !== 0 && showPagination ? (
         <PaginationWrapper>
           <ReactPaginate
             breakLabel="..."
             nextLabel="next >"
+            onPageChange={handlePageClick}
             pageRangeDisplayed={5}
-            pageCount={5}
+            pageCount={pageCount}
             previousLabel="< previous"
             renderOnZeroPageCount={null}
           />
@@ -44,5 +91,21 @@ function ProductGrid({ heading, items }) {
     </Box>
   );
 }
+
+ProductGrid.defaultProps = {
+  showPagination: false,
+  toggleFilter: false,
+  itemsPerPage: 12,
+  showDescription: false,
+};
+
+ProductGrid.propTypes = {
+  heading: PropTypes.string.isRequired,
+  items: PropTypes.instanceOf(Array).isRequired,
+  showPagination: PropTypes.bool,
+  toggleFilter: PropTypes.bool,
+  itemsPerPage: PropTypes.number,
+  showDescription: PropTypes.bool,
+};
 
 export default ProductGrid;
