@@ -64,6 +64,7 @@ export const FormGroup = styled.div`
 
   textarea {
     width: 100%;
+    resize: none;
   }
 `;
 

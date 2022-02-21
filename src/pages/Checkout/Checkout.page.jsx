@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { NormalButton } from '../../components/Styled/Custom.styled';
 import {
   CheckoutGrid,
@@ -81,7 +82,10 @@ function Checkout() {
         </CheckoutSection>
         <CheckoutSection />
         <CheckoutButtonWrapper className="buttonWrapper">
-          <NormalButton>Go back to cart</NormalButton>
+          <NormalButton>
+            {' '}
+            <Link to="/cart">Go back to cart</Link>
+          </NormalButton>
           <NormalButton>Place order</NormalButton>
         </CheckoutButtonWrapper>
       </CheckoutGrid>
