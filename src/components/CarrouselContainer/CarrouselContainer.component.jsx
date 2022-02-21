@@ -17,14 +17,17 @@ function CarrouselContainer({ items }) {
     <StyledCarrousel>
       <Carousel showArrows showThumbs>
         {items.map((item) => (
-          <div key={item.id} role="img">
+          <div
+            key={item.id}
+            role="img"
+            onClick={() => {
+              handleClick(item.data.name);
+            }}
+          >
             <img
               type="image"
               src={item.data.main_image.url}
               alt={item.data.name}
-              onClick={() => {
-                handleClick(item.data.name);
-              }}
             />
             <StyledCarrousel.Title> {item.data.name}</StyledCarrousel.Title>
           </div>

@@ -57,15 +57,6 @@ export const TextInput = styled.input`
   padding-bottom: 0px;
   font-size: 1.3rem;
   background-color: inherit;
-  width: ${(props) => props.width || '100%'};
-  margin: 1%;
-
-  @media only screen and (max-width: 600px) {
-     {
-      width: 90%;
-      margin: 5%;
-    }
-  }
 `;
 
 export const TextArea = styled.textarea`
@@ -74,14 +65,7 @@ export const TextArea = styled.textarea`
   border-right: 0;
   padding-bottom: 0px;
   font-size: 1.3rem;
-  background-color:inherit;
-  width: ${(props) => props.width || '100%'};
-
-  @media only screen and (max-width: 600px) {
-    {
-     width:90%; 
-     margin: 5%;
-   } 
+  background-color: inherit;
 `;
 
 export const NormalButton = styled.button`
@@ -241,6 +225,29 @@ export const HeaderIcon = styled.i`
   font-size: 2rem;
 `;
 
+export const BadgeIcon = styled.i`
+  font-size: 2rem;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  cursor: pointer;
+  color: #000;
+  & span {
+    position: absolute;
+    content: ${(props) => (props.content ? props.content : '0')};
+    background: #53607a;
+    height: 1rem;
+    top: 20px;
+    width: 1.5rem;
+    left: 25px;
+    text-align: center;
+    font-size: 1rem;
+    border-radius: 50%;
+    color: white;
+    border: 1px solid #53607a;
+  }
+`;
+
 export const ItemLabel = styled.label`
   font-size: 1.5rem;
 `;
@@ -248,7 +255,6 @@ export const ItemLabel = styled.label`
 export const FlexColumn = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 2%;
 `;
 
 FlexColumn.Centered = styled.div`

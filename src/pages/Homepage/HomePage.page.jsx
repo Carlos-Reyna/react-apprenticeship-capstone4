@@ -45,6 +45,7 @@ function HomePage() {
         heading={FEATURED_PRODUCT_HEADING}
         items={productStore.featuredProductData}
         showPagination={false}
+        type="FEATURED"
       />
       <FlexColumn.Centered>
         <NormalButton title="btn-toggle-products">
