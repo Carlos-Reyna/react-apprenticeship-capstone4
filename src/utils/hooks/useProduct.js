@@ -34,5 +34,12 @@ export function useProduct(productId) {
     };
   }, [apiRef, isApiMetadataLoading]);
 
-  return { productInfo };
+  function updateProductStock(quantity) {
+    const newProduct = { ...productInfo.product };
+    const newValue = newProduct.data.stock - quantity;
+    const data = { ...newProduct.data, stock: newValue };
+    setProductInfo({ product: { ...newProduct, data }, isLoading: false });
+  }
+
+  return { productInfo, updateProductStock };
 }

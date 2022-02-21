@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useStoreCart } from '../../utils/hooks/useStoreCart';
 import { TitleHeading, Box, NormalButton } from '../Styled/Custom.styled';
 import {
   PaginationWrapper,
@@ -16,12 +17,14 @@ function ProductGrid({
   toggleFilter = false,
   itemsPerPage = 12,
   showDescription = false,
+  type = 'LIST',
 }) {
   const [currentItems, setCurrentItems] = useState(items);
   const [pageCount, setPageCount] = useState(0);
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
+  const { AddItemToCart } = useStoreCart();
 
   useEffect(() => {
     // Fetch items from another resources.
@@ -38,6 +41,12 @@ function ProductGrid({
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % items.length;
     setItemOffset(newOffset);
+  };
+
+  const handleClick = (item) => {
+    if (item.data.stock >= 1) {
+      AddItemToCart(item, type);
+    }
   };
 
   return (
@@ -70,7 +79,9 @@ function ProductGrid({
                 Price: {item.data.price}$
               </ProductWrapper.TextWrapper>
             </ProductWrapper.Content>
-            <NormalButton width="100%">Add to cart</NormalButton>
+            <NormalButton onClick={() => handleClick(item)}>
+              {item.data.stock === 0 ? 'No Items in Stock' : 'Add to cart'}
+            </NormalButton>
           </ProductWrapper>
         ))}
       </StyledProductGrid>
@@ -97,6 +108,7 @@ ProductGrid.defaultProps = {
   toggleFilter: false,
   itemsPerPage: 12,
   showDescription: false,
+  type: 'LIST',
 };
 
 ProductGrid.propTypes = {
@@ -106,6 +118,7 @@ ProductGrid.propTypes = {
   toggleFilter: PropTypes.bool,
   itemsPerPage: PropTypes.number,
   showDescription: PropTypes.bool,
+  type: PropTypes.string,
 };
 
 export default ProductGrid;

@@ -6,16 +6,20 @@ import {
   TitleHeading,
   HeaderIcon,
   NormalButton,
+  BadgeIcon,
 } from '../Styled/Custom.styled';
 import {
   StyledHeader,
   HeaderTitleWrapper,
   HeaderForm,
 } from './StyledHeader.styled';
+import { useStoreCart } from '../../utils/hooks/useStoreCart';
 
 function Header() {
   const [searchTerm, setSearchTermn] = useState('');
   const navigate = useNavigate();
+  const { totalSelectedProducts } = useStoreCart();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -28,6 +32,8 @@ function Header() {
   const handleChange = (e) => {
     setSearchTermn(e.target.value);
   };
+
+  const totalCount = totalSelectedProducts();
 
   return (
     <StyledHeader>
@@ -45,13 +51,17 @@ function Header() {
           onChange={(e) => handleChange(e)}
           type="text"
           placeholder="Search product"
-          width="70%"
         />
         <NormalButton type="submit" width="10%">
           Search
         </NormalButton>
       </HeaderForm>
-      <HeaderIcon className="fa fa-shopping-cart" />
+      <Link to="cart">
+        <BadgeIcon className="fa fa-shopping-cart">
+          {' '}
+          <span className="badge">{totalCount}</span>{' '}
+        </BadgeIcon>
+      </Link>
     </StyledHeader>
   );
 }

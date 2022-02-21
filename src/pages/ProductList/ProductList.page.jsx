@@ -81,6 +81,7 @@ function ProductList() {
         items={productStore.filteredProducts}
         toggleFilter={toggleFilter}
         showPagination
+        type="LIST"
       />
     </Box>
   );

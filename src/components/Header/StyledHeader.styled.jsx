@@ -9,21 +9,25 @@ export const StyledHeader = styled.div`
   border-left: 0;
   border-right: 0;
   margin-bottom: 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-column-gap: 20px;
+  padding-top: 10px;
+
+  @media only screen and (max-width: 920px) {
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: 3fr 2fr;
+  }
 `;
 
 export const HeaderTitleWrapper = styled.div`
-  display: inherit;
-  width:15%;
-  margin:1%;
+  display:flex;
+  justify-content:center;
+  text-align:center;
   
-
-  @media only screen and (max-width: 920px) {
-    width:15%;
-  }
-
   @media only screen and (max-width: 600px) {
     &:first-child{
     display:none;
@@ -35,14 +39,19 @@ export const HeaderTitleWrapper = styled.div`
 export const HeaderForm = styled.form`
   display: flex;
   flex-direction: row;
-  width: 40%;
+  width: 100%;
   align-items: baseline;
+  justify-content: space-around;
+}
+input{
+  margin: 5px;
+  width: 80%;
 }
   @media only screen and (max-width: 920px) {
-    width: 60%;
+    width: 100%;
   }
 
   @media only screen and (max-width: 600px) {
-    width: 80%;
+    width: 100%;
   }
 `;

@@ -7,6 +7,7 @@ export const productSlice = createSlice({
     filteredProducts: [],
     isLoading: true,
     featuredProductData: [],
+    selectedProducts: [], // [ {id:  selectedProduuct: {}, qty: 1 }]
   },
   reducers: {
     storeProducts: (state, { payload }) => {
@@ -21,10 +22,18 @@ export const productSlice = createSlice({
       const { filteredProducts } = payload;
       return { ...state, filteredProducts };
     },
+    storeSelectedProducts: (state, { payload }) => {
+      const { selectedProducts } = payload;
+      return { ...state, selectedProducts };
+    },
   },
 });
 
-export const { storeProducts, storeFeaturedProducts, storeFilterProducts } =
-  productSlice.actions;
+export const {
+  storeProducts,
+  storeFeaturedProducts,
+  storeFilterProducts,
+  storeSelectedProducts,
+} = productSlice.actions;
 
 export default productSlice.reducer;
